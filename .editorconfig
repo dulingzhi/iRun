@@ -1,0 +1,19 @@
+[*]
+end_of_line = crlf
+max_line_length = 120
+
+[*.{cpp,h}]
+charset = utf-8
+
+[*.{c,cc,cpp,h,hpp,lua,ts}]
+indent_size = 4
+indent_style = space
+trim_trailing_whitespace = false
+
+[*.{xml,json}]
+indent_size = 2
+indent_style = space
+trim_trailing_whitespace = false
+
+[*.sh]
+end_of_line = lf
