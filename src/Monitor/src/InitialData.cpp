@@ -80,7 +80,7 @@ BOOL CInitialData::Init()
 
 		m_strDllPath = m_szSelfPathA;
 #ifdef _WIN64
-		m_strDllPath += "Monitor.dll";
+		m_strDllPath += "Monitor64.dll";
 #else
 		m_strDllPath += "Monitor.dll";
 #endif		

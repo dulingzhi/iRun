@@ -137,8 +137,8 @@ CAPTION "关于 2Box"
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
-    LTEXT           "2Box，1.0 版",IDC_STATIC,42,14,114,8,SS_NOPREFIX
-    LTEXT           "Wei.Copyright (C) 2018",IDC_STATIC,42,26,114,8
+    LTEXT           "iRun v1.0.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Jai Copyright (C) 2023",IDC_STATIC,42,26,114,8
     DEFPUSHBUTTON   "确定",IDOK,97,149,50,14,WS_GROUP
     EDITTEXT        IDC_EDIT_TIP,14,46,217,98,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | WS_VSCROLL
 END
@@ -150,8 +150,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,1,0,0
- PRODUCTVERSION 1,1,0,0
+ FILEVERSION 1,0,0,0
+ PRODUCTVERSION 1,0,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -166,14 +166,14 @@ BEGIN
     BEGIN
         BLOCK "080403a8"
         BEGIN
-            VALUE "CompanyName", "Wei"
-            VALUE "FileDescription", "2Box"
-            VALUE "FileVersion", "1.1.0.0"
-            VALUE "InternalName", "2Box.exe"
-            VALUE "LegalCopyright", "Wei.保留所有权利。"
-            VALUE "OriginalFilename", "2Box.exe"
-            VALUE "ProductName", "2Box"
-            VALUE "ProductVersion", "1.1.0.0"
+            VALUE "CompanyName", "Jai"
+            VALUE "FileDescription", "iRun"
+            VALUE "FileVersion", "1.0.0.0"
+            VALUE "InternalName", "iRun.exe"
+            VALUE "LegalCopyright", "@Jai"
+            VALUE "OriginalFilename", "iRun.exe"
+            VALUE "ProductName", "iRun"
+            VALUE "ProductVersion", "1.0.0.0"
         END
     END
     BLOCK "VarFileInfo"

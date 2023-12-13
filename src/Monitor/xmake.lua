@@ -1,5 +1,6 @@
 
 target("Monitor")
+    set_suffixname(is_arch('x64') and '64' or '')
     set_kind("shared")
     add_files("**.cpp")
     add_headerfiles("**.h")
