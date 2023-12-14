@@ -344,7 +344,7 @@ BOOL CMy2BoxApp::CheckInstance()
         return FALSE;
     }
 
-    rpc_client client("127.0.0.1", 10001);
+    rpc_client client("127.0.0.1", 9000);
     if (client.connect())
     {
         client.call("iRun.ActiveWnd");
