@@ -1,4 +1,3 @@
-// dllmain.cpp : ���� DLL Ӧ�ó������ڵ㡣
 #include "pch.h"
 #include "InitialData.h"
 #include "HookMgr.h"
@@ -8,7 +7,7 @@ std::shared_ptr<rpc_client> g_RPCClient;
 
 int Init()
 {
-    g_RPCClient = std::make_shared<rpc_client>("127.0.0.1", 10001);
+    g_RPCClient = std::make_shared<rpc_client>("127.0.0.1", 9000);
     if (!g_RPCClient->connect())
     {
         TerminateProcess(GetCurrentProcess(), 0);
@@ -42,6 +41,13 @@ void InitHook()
     }
 }
 
+DWORD WINAPI InitializeThread()
+{
+    Init();
+    InitHook();
+    return 0;
+}
+
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
 {
     if (DetourIsHelperProcess())
@@ -53,8 +59,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
     {
         DetourRestoreAfterWith();
         DisableThreadLibraryCalls(hModule);
-        Init();
-        InitHook();
+        std::thread t(InitializeThread);
+        t.detach();
     }
 
     return TRUE;

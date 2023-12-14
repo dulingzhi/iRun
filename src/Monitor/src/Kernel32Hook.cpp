@@ -161,7 +161,7 @@ BOOL WINAPI CKernel32Hook::CreateProcessA(__in_opt LPCSTR lpApplicationName,
 
     if (bRet)
     {
-        if (!g_RPCClient->call<int>("2Box.NewProcess", lpProcessInformation->dwProcessId))
+        if (!g_RPCClient->call<int>("iRun.NewProcess", lpProcessInformation->dwProcessId))
         {
             if (FALSE == bOrigSuspended)
             {
@@ -261,7 +261,7 @@ BOOL WINAPI CKernel32Hook::CreateProcessW(__in_opt LPCWSTR lpApplicationName,
 
     if (bRet)
     {
-        if (!g_RPCClient->call<int>("2Box.NewProcess", lpProcessInformation->dwProcessId))
+        if (!g_RPCClient->call<int>("iRun.NewProcess", lpProcessInformation->dwProcessId))
         {
             if (FALSE == bOrigSuspended)
             {

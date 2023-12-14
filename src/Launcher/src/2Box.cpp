@@ -1,5 +1,5 @@
 
-// 2Box.cpp : ¶¨ÒåÓ¦ÓÃ³ÌĞòµÄÀàĞĞÎª¡£
+// 2Box.cpp : å®šä¹‰åº”ç”¨ç¨‹åºçš„ç±»è¡Œä¸ºã€‚
 //
 
 #include "pch.h"
@@ -25,23 +25,23 @@ int bResultCallBack(unsigned int error, const void* data, unsigned int size, voi
 #define new DEBUG_NEW
 #endif
 
-// ÓÃÓÚÓ¦ÓÃ³ÌĞò¡°¹ØÓÚ¡±²Ëµ¥ÏîµÄ CAboutDlg ¶Ô»°¿ò
+// ç”¨äºåº”ç”¨ç¨‹åºâ€œå…³äºâ€èœå•é¡¹çš„ CAboutDlg å¯¹è¯æ¡†
 
 class CAboutDlg : public CDialog
 {
 public:
     CAboutDlg();
 
-    // ¶Ô»°¿òÊı¾İ
+    // å¯¹è¯æ¡†æ•°æ®
     enum
     {
         IDD = IDD_ABOUTBOX
     };
 
 protected:
-    virtual void DoDataExchange(CDataExchange* pDX); // DDX/DDV Ö§³Ö
+    virtual void DoDataExchange(CDataExchange* pDX); // DDX/DDV æ”¯æŒ
 
-    // ÊµÏÖ
+    // å®ç°
 protected:
     DECLARE_MESSAGE_MAP()
 
@@ -53,18 +53,11 @@ CAboutDlg::CAboutDlg()
     : CDialog(CAboutDlg::IDD)
     , m_strNote(_T(""))
 {
-    m_strNote += _T("ÃâÔğÉùÃ÷:\r\n");
-    TCHAR msgNote[512] = {_T('±¾'), _T('Èí'), _T('¼ş'), _T('Íê'), _T('È«'), _T('Ãâ'), _T('·Ñ'), ',', _T('½ö'), _T('¹©'), _T('Ñ§'), _T('Ï°'), _T('½»'), _T('Á÷'), ',',      '\r',     '\n', _T('Çë'), _T('Îğ'), _T('ÓÃ'),
-                          _T('ÓÚ'), _T('ÈÎ'), _T('ºÎ'), _T('ÉÌ'), _T('Òµ'), _T('ÓÃ'), _T('Í¾'), ',', '\r',     '\n',     _T('·ñ'), _T('Ôò'), _T('ºó'), _T('¹û'), _T('×Ô'), _T('¸º'), '!',  '\r',     '\n'};
-
-    m_strNote += msgNote;
+    m_strNote += _T("å…è´£å£°æ˜:\r\n");
+    m_strNote += _T("æœ¬è½¯ä»¶å®Œå…¨å…è´¹,ä»…ä¾›å­¦ä¹ äº¤æµ\r\n,è¯·å‹¿ç”¨äºä»»ä½•å•†ä¸šç”¨é€”\r\n,å¦åˆ™åæœè‡ªè´Ÿ!\r\n");
     m_strNote += _T("\r\n\r\n");
-
-    m_strNote += _T("Ãâ·ÑÏÂÔØµØÖ·:\r\n");
-    TCHAR msgAddr[512] = {_T('Á´'), _T('½Ó'), ':', 'h', 't', 't', 'p', 's', ':', '/', '/', 'p', 'a', 'n',  '.',  'b',      'a',      'i', 'd', 'u', '.', 'c',
-                          'o',      'm',      '/', 's', '/', '1', 'b', 'p', 'Y', 'J', '4', 'w', 'Z', '\r', '\n', _T('ÃÜ'), _T('Âë'), ':', 'a', 'h', 'h', '4'};
-
-    m_strNote += msgAddr;
+    m_strNote += _T("å…è´¹ä¸‹è½½åœ°å€:\r\n");
+    m_strNote += _T("é“¾æ¥:https://pan.baidu.com/s/1bpYJ4wZ\r\nå¯†ç :ahh4");
 }
 
 void CAboutDlg::DoDataExchange(CDataExchange* pDX)
@@ -97,34 +90,34 @@ void* CMy2BoxApp::NewFileThread(void* usr)
     return 0;
 }
 
-// CMy2BoxApp ¹¹Ôì
+// CMy2BoxApp æ„é€ 
 
 CMy2BoxApp::CMy2BoxApp()
     : CWinApp()
     , m_nLLDataPos(0)
 {
 
-    // TODO: ÔÚ´Ë´¦Ìí¼Ó¹¹Ôì´úÂë£¬
-    // ½«ËùÓĞÖØÒªµÄ³õÊ¼»¯·ÅÖÃÔÚ InitInstance ÖĞ
+    // TODO: åœ¨æ­¤å¤„æ·»åŠ æ„é€ ä»£ç ï¼Œ
+    // å°†æ‰€æœ‰é‡è¦çš„åˆå§‹åŒ–æ”¾ç½®åœ¨ InitInstance ä¸­
 }
 
-// Î¨Ò»µÄÒ»¸ö CMy2BoxApp ¶ÔÏó
+// å”¯ä¸€çš„ä¸€ä¸ª CMy2BoxApp å¯¹è±¡
 
 CMy2BoxApp theApp;
 
-// CMy2BoxApp ³õÊ¼»¯
+// CMy2BoxApp åˆå§‹åŒ–
 
 BOOL CMy2BoxApp::InitInstance()
 {
     if (FALSE == InitSelfPath())
     {
-        AfxMessageBox(_T("×ÔÉíÂ·¾¶»ñÈ¡Ê§°Ü"));
+        AfxMessageBox(_T("è‡ªèº«è·¯å¾„è·å–å¤±è´¥"));
         return FALSE;
     }
 
     if (FALSE == InitEnv())
     {
-        AfxMessageBox(_T("»·¾³¿é³õÊ¼»¯Ê§°Ü"));
+        AfxMessageBox(_T("ç¯å¢ƒå—åˆå§‹åŒ–å¤±è´¥"));
         return FALSE;
     }
 
@@ -133,23 +126,23 @@ BOOL CMy2BoxApp::InitInstance()
         return FALSE;
     }
 
-    g_RPCServer = std::make_shared<rpc_server>(10001, std::thread::hardware_concurrency());
+    g_RPCServer = std::make_shared<rpc_server>(9000, std::thread::hardware_concurrency());
 
     if (!g_RPCServer)
     {
-        AfxMessageBox(_T("rpc¿â³õÊ¼»¯Ê§°Ü!³ÌĞò¿ÉÄÜÎŞ·¨Õı³£ÔËĞĞ"));
+        AfxMessageBox(_T("rpcåº“åˆå§‹åŒ–å¤±è´¥!ç¨‹åºå¯èƒ½æ— æ³•æ­£å¸¸è¿è¡Œ"));
         return FALSE;
     }
 
-    g_RPCServer->register_handler("2Box.NewProcess", &RpcServer::OnNewProcess);
-    g_RPCServer->register_handler("2Box.NewWnd", &RpcServer::OnNewWnd);
-    g_RPCServer->register_handler("2Box.EmbedWnd", &RpcServer::OnEmbedWnd);
-    g_RPCServer->register_handler("2Box.ActiveWnd", &RpcServer::OnActiveWnd);
-    g_RPCServer->register_handler("2Box.GetAllWnd", &RpcServer::OnGetAllWnd);
+    g_RPCServer->register_handler("iRun.NewProcess", &RpcServer::OnNewProcess);
+    g_RPCServer->register_handler("iRun.NewWnd", &RpcServer::OnNewWnd);
+    g_RPCServer->register_handler("iRun.EmbedWnd", &RpcServer::OnEmbedWnd);
+    g_RPCServer->register_handler("iRun.ActiveWnd", &RpcServer::OnActiveWnd);
+    g_RPCServer->register_handler("iRun.GetAllWnd", &RpcServer::OnGetAllWnd);
 
     // 	if (FALSE == InitResource())
     // 	{
-    // 		AfxMessageBox(_T("×ÊÔ´ÎÄ¼şËğ»µ"));
+    // 		AfxMessageBox(_T("èµ„æºæ–‡ä»¶æŸå"));
     // 		return FALSE;
     // 	}
 
@@ -159,48 +152,48 @@ BOOL CMy2BoxApp::InitInstance()
 
     g_RPCServer->async_run();
 
-    // Èç¹ûÒ»¸öÔËĞĞÔÚ Windows XP ÉÏµÄÓ¦ÓÃ³ÌĞòÇåµ¥Ö¸¶¨Òª
-    // Ê¹ÓÃ ComCtl32.dll °æ±¾ 6 »ò¸ü¸ß°æ±¾À´ÆôÓÃ¿ÉÊÓ»¯·½Ê½£¬
-    // ÔòĞèÒª InitCommonControlsEx()¡£·ñÔò£¬½«ÎŞ·¨´´½¨´°¿Ú¡£
+    // å¦‚æœä¸€ä¸ªè¿è¡Œåœ¨ Windows XP ä¸Šçš„åº”ç”¨ç¨‹åºæ¸…å•æŒ‡å®šè¦
+    // ä½¿ç”¨ ComCtl32.dll ç‰ˆæœ¬ 6 æˆ–æ›´é«˜ç‰ˆæœ¬æ¥å¯ç”¨å¯è§†åŒ–æ–¹å¼ï¼Œ
+    // åˆ™éœ€è¦ InitCommonControlsEx()ã€‚å¦åˆ™ï¼Œå°†æ— æ³•åˆ›å»ºçª—å£ã€‚
     INITCOMMONCONTROLSEX InitCtrls;
     InitCtrls.dwSize = sizeof(InitCtrls);
-    // ½«ËüÉèÖÃÎª°üÀ¨ËùÓĞÒªÔÚÓ¦ÓÃ³ÌĞòÖĞÊ¹ÓÃµÄ
-    // ¹«¹²¿Ø¼şÀà¡£
+    // å°†å®ƒè®¾ç½®ä¸ºåŒ…æ‹¬æ‰€æœ‰è¦åœ¨åº”ç”¨ç¨‹åºä¸­ä½¿ç”¨çš„
+    // å…¬å…±æ§ä»¶ç±»ã€‚
     InitCtrls.dwICC = ICC_WIN95_CLASSES;
     InitCommonControlsEx(&InitCtrls);
 
     CWinApp::InitInstance();
 
-    // ±ê×¼³õÊ¼»¯
-    // Èç¹ûÎ´Ê¹ÓÃÕâĞ©¹¦ÄÜ²¢Ï£Íû¼õĞ¡
-    // ×îÖÕ¿ÉÖ´ĞĞÎÄ¼şµÄ´óĞ¡£¬ÔòÓ¦ÒÆ³ıÏÂÁĞ
-    // ²»ĞèÒªµÄÌØ¶¨³õÊ¼»¯Àı³Ì
-    // ¸ü¸ÄÓÃÓÚ´æ´¢ÉèÖÃµÄ×¢²á±íÏî
-    // TODO: Ó¦ÊÊµ±ĞŞ¸Ä¸Ã×Ö·û´®£¬
-    // ÀıÈçĞŞ¸ÄÎª¹«Ë¾»ò×éÖ¯Ãû
-    SetRegistryKey(_T("2Box"));
+    // æ ‡å‡†åˆå§‹åŒ–
+    // å¦‚æœæœªä½¿ç”¨è¿™äº›åŠŸèƒ½å¹¶å¸Œæœ›å‡å°
+    // æœ€ç»ˆå¯æ‰§è¡Œæ–‡ä»¶çš„å¤§å°ï¼Œåˆ™åº”ç§»é™¤ä¸‹åˆ—
+    // ä¸éœ€è¦çš„ç‰¹å®šåˆå§‹åŒ–ä¾‹ç¨‹
+    // æ›´æ”¹ç”¨äºå­˜å‚¨è®¾ç½®çš„æ³¨å†Œè¡¨é¡¹
+    // TODO: åº”é€‚å½“ä¿®æ”¹è¯¥å­—ç¬¦ä¸²ï¼Œ
+    // ä¾‹å¦‚ä¿®æ”¹ä¸ºå…¬å¸æˆ–ç»„ç»‡å
+    SetRegistryKey(_T("iRun"));
     LoadStdProfileSettings(4);
 
-    // ÈôÒª´´½¨Ö÷´°¿Ú£¬´Ë´úÂë½«´´½¨ĞÂµÄ¿ò¼Ü´°¿Ú
-    // ¶ÔÏó£¬È»ºó½«ÆäÉèÖÃÎªÓ¦ÓÃ³ÌĞòµÄÖ÷´°¿Ú¶ÔÏó
+    // è‹¥è¦åˆ›å»ºä¸»çª—å£ï¼Œæ­¤ä»£ç å°†åˆ›å»ºæ–°çš„æ¡†æ¶çª—å£
+    // å¯¹è±¡ï¼Œç„¶åå°†å…¶è®¾ç½®ä¸ºåº”ç”¨ç¨‹åºçš„ä¸»çª—å£å¯¹è±¡
     CMainFrame* pFrame = new CMainFrame;
     if (!pFrame)
         return FALSE;
     m_pMainWnd = pFrame;
-    // ´´½¨²¢¼ÓÔØ¿ò¼Ü¼°Æä×ÊÔ´
+    // åˆ›å»ºå¹¶åŠ è½½æ¡†æ¶åŠå…¶èµ„æº
     pFrame->LoadFrame(IDR_MAINFRAME, WS_OVERLAPPEDWINDOW | FWS_ADDTOTITLE, NULL, NULL);
 
-    // Î¨Ò»µÄÒ»¸ö´°¿ÚÒÑ³õÊ¼»¯£¬Òò´ËÏÔÊ¾Ëü²¢¶ÔÆä½øĞĞ¸üĞÂ
+    // å”¯ä¸€çš„ä¸€ä¸ªçª—å£å·²åˆå§‹åŒ–ï¼Œå› æ­¤æ˜¾ç¤ºå®ƒå¹¶å¯¹å…¶è¿›è¡Œæ›´æ–°
     pFrame->ShowWindow(SW_SHOW);
     pFrame->UpdateWindow();
-    // ½öµ±¾ßÓĞºó×ºÊ±²Åµ÷ÓÃ DragAcceptFiles
-    //  ÔÚ SDI Ó¦ÓÃ³ÌĞòÖĞ£¬ÕâÓ¦ÔÚ ProcessShellCommand Ö®ºó·¢Éú
+    // ä»…å½“å…·æœ‰åç¼€æ—¶æ‰è°ƒç”¨ DragAcceptFiles
+    //  åœ¨ SDI åº”ç”¨ç¨‹åºä¸­ï¼Œè¿™åº”åœ¨ ProcessShellCommand ä¹‹åå‘ç”Ÿ
     return TRUE;
 }
 
 CDocument* CMy2BoxApp::OpenDocumentFile(LPCTSTR lpszFileName)
 {
-    // TODO: ÔÚ´ËÌí¼Ó×¨ÓÃ´úÂëºÍ/»òµ÷ÓÃ»ùÀà
+    // TODO: åœ¨æ­¤æ·»åŠ ä¸“ç”¨ä»£ç å’Œ/æˆ–è°ƒç”¨åŸºç±»
     CFileFind finder;
     if (finder.FindFile(lpszFileName))
     {
@@ -210,7 +203,7 @@ CDocument* CMy2BoxApp::OpenDocumentFile(LPCTSTR lpszFileName)
     }
     else
     {
-        AfxMessageBox(_T("ÎÄ¼ş²»´æÔÚ£¡"));
+        AfxMessageBox(_T("æ–‡ä»¶ä¸å­˜åœ¨ï¼"));
         return NULL;
     }
 
@@ -219,7 +212,7 @@ CDocument* CMy2BoxApp::OpenDocumentFile(LPCTSTR lpszFileName)
 
 BOOL CMy2BoxApp::OnIdle(LONG lCount)
 {
-    // TODO: ÔÚ´ËÌí¼Ó×¨ÓÃ´úÂëºÍ/»òµ÷ÓÃ»ùÀà
+    // TODO: åœ¨æ­¤æ·»åŠ ä¸“ç”¨ä»£ç å’Œ/æˆ–è°ƒç”¨åŸºç±»
 
     if (CWinApp::OnIdle(lCount))
     {
@@ -235,7 +228,7 @@ BOOL CMy2BoxApp::OnIdle(LONG lCount)
     return TRUE;
 }
 
-// CMy2BoxApp ÏûÏ¢´¦Àí³ÌĞò
+// CMy2BoxApp æ¶ˆæ¯å¤„ç†ç¨‹åº
 
 void CMy2BoxApp::OnAppAbout()
 {
@@ -245,7 +238,7 @@ void CMy2BoxApp::OnAppAbout()
 
 void CMy2BoxApp::OnFileOpen()
 {
-    // TODO: ÔÚ´ËÌí¼ÓÃüÁî´¦Àí³ÌĞò´úÂë
+    // TODO: åœ¨æ­¤æ·»åŠ å‘½ä»¤å¤„ç†ç¨‹åºä»£ç 
     CString strFile;
 
     CFileDialog dlgFile(TRUE);
@@ -314,7 +307,7 @@ BOOL CMy2BoxApp::ProcUnknownEnvStringsW(const void* pszzEnv, const std::wstring&
     const wchar_t* toParse = (const wchar_t*)pszzEnv;
     if (((const char*)toParse)[1])
     {
-        // ´ó¸ÅÂÊ²»ÊÇunicode×Ö·û;
+        // å¤§æ¦‚ç‡ä¸æ˜¯unicodeå­—ç¬¦;
         return FALSE;
     }
 
@@ -354,7 +347,7 @@ BOOL CMy2BoxApp::CheckInstance()
     rpc_client client("127.0.0.1", 10001);
     if (client.connect())
     {
-        client.call("2Box.ActiveWnd");
+        client.call("iRun.ActiveWnd");
     }
     return TRUE;
 }
@@ -367,7 +360,7 @@ BOOL CMy2BoxApp::StartLoadFileThread(CString& FileName)
     // if (0 != SRPC_ThreadPoolWork(NULL, &NewFileThread, pstrName))
     // {
     //     delete pstrName;
-    //     AfxMessageBox(_T("³ÌĞòÆô¶¯Ê§°Ü"));
+    //     AfxMessageBox(_T("ç¨‹åºå¯åŠ¨å¤±è´¥"));
     //     return FALSE;
     // }
 
@@ -437,9 +430,9 @@ BOOL CMy2BoxApp::InitSelfPath()
 // 			break;
 // 		}
 //
-// 		// µÃµ½×ÊÔ´ÎÄ¼ş´óĞ¡ ;
+// 		// å¾—åˆ°èµ„æºæ–‡ä»¶å¤§å° ;
 // 		DWORD dwSize = SizeofResource(AfxGetInstanceHandle(), hRes);
-// 		// Ëø¶¨×ÊÔ´ÒÔµÃµ½ËüÔÚÄÚ´æÖĞµÄµØÖ· ;
+// 		// é”å®šèµ„æºä»¥å¾—åˆ°å®ƒåœ¨å†…å­˜ä¸­çš„åœ°å€ ;
 // 		LPVOID sRawPE = (LPVOID)LockResource(hResourceLoaded);
 //
 // 		hFile = CreateFile(FilePath,GENERIC_WRITE,0,NULL,CREATE_ALWAYS,FILE_ATTRIBUTE_NORMAL,0);

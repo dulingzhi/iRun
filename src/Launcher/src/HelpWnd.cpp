@@ -17,7 +17,7 @@ CHelpWnd::CHelpWnd()
     TCHAR pt = L' ';
     CString strTemp;
 
-    m_strNote += _T("2Box\r\n免责声明:\r\n");
+    m_strNote += _T("iRun\r\n免责声明:\r\n");
     m_strNote += _T("本软件完全免费仅供学习交流\r\n请勿用于任何商业用途否则后果自负!\r\n");
     m_strNote += _T("\r\n\r\n");
     m_strNote += _T("免费更新及下载地址见\"帮助\"--\"说明...\"\r\n\r\n");

@@ -133,7 +133,7 @@ END
 
 IDD_ABOUTBOX DIALOGEX 0, 0, 246, 170
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "关于 2Box"
+CAPTION "关于 iRun"
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
@@ -209,7 +209,7 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDR_MAINFRAME           "2Box"
+    IDR_MAINFRAME           "iRun"
 END
 
 #endif    // 中文(中华人民共和国) resources
