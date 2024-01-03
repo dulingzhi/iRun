@@ -4,9 +4,7 @@
 #include <memory>
 #include "resource.h" // Ö÷·ûºÅ
 
-#include <rest_rpc.hpp>
-using namespace rest_rpc;
-using namespace rpc_service;
+#include <veigar/veigar.h>
 
 class CMy2BoxApp : public CWinApp
 {
@@ -59,7 +57,7 @@ private:
     CStringW m_strSelfPathW;
     CStringA m_strSelfPathA;
 
-    std::shared_ptr<rpc_server> g_RPCServer;
+    std::shared_ptr<veigar::Veigar> m_Veigar;
 
     std::wstring m_strEnv;
     size_t m_nLLDataPos;

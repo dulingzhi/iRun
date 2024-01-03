@@ -1,6 +1,6 @@
 #pragma once
 
-#include <rest_rpc.hpp>
+#include <veigar/msgpack.hpp>
 
 struct NEW_PROC_DATA
 {

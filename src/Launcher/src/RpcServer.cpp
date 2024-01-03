@@ -48,7 +48,7 @@ int AcptEvent(void* instance, int type, void* usr)
 // 		return 0;
 // 	}
 
-int OnNewProcess(rpc_conn conn, DWORD iPid)
+int OnNewProcess(DWORD iPid)
 {
     NEW_PROC_DATA new_proc_data = {0};
     new_proc_data.iPid = iPid;
@@ -61,19 +61,19 @@ int OnNewProcess(rpc_conn conn, DWORD iPid)
     return 0;
 }
 
-int OnNewWnd(rpc_conn conn, const EMBED_INFO& embed_info)
+int OnNewWnd(const EMBED_INFO& embed_info)
 {
     theApp.GetMainWnd()->SendMessage(CMainFrame::WM_GAME_NEWWND, (WPARAM)&embed_info);
     return 0;
 }
 
-int OnEmbedWnd(rpc_conn conn, const EMBED_INFO& embed_info)
+int OnEmbedWnd(const EMBED_INFO& embed_info)
 {
     theApp.GetMainWnd()->SendMessage(CMainFrame::WM_GAME_ATTACH, (WPARAM)&embed_info);
     return 0;
 }
 
-int OnActiveWnd(rpc_conn conn)
+int OnActiveWnd()
 {
     CWnd* pMainWnd = theApp.GetMainWnd();
     if (NULL == pMainWnd)
@@ -92,7 +92,7 @@ int OnActiveWnd(rpc_conn conn)
     return 0;
 }
 
-std::vector<WND_INFO> OnGetAllWnd(rpc_conn conn)
+std::vector<WND_INFO> OnGetAllWnd()
 {
     std::vector<WndDataPtr> vecAllWnd;
     theDataMgr.GetAllWnd(vecAllWnd);
@@ -108,6 +108,11 @@ std::vector<WND_INFO> OnGetAllWnd(rpc_conn conn)
     result.push_back({GetCurrentProcessId(), (unsigned long long)theApp.GetMainWnd()->GetSafeHwnd()});
 
     return result;
+}
+
+int OnConnect()
+{
+    return 1;
 }
 
 // 	int IsProcessInBox( rpc_conn conn )

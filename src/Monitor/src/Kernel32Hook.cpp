@@ -161,7 +161,8 @@ BOOL WINAPI CKernel32Hook::CreateProcessA(__in_opt LPCSTR lpApplicationName,
 
     if (bRet)
     {
-        if (!g_RPCClient->call<int>("iRun.NewProcess", lpProcessInformation->dwProcessId))
+        auto res = g_Veigar->syncCall("iRun.Server", 100, "iRun.NewProcess", lpProcessInformation->dwProcessId);
+        if (res.isSuccess() && !res.obj.get().as<int>())
         {
             if (FALSE == bOrigSuspended)
             {
@@ -261,7 +262,8 @@ BOOL WINAPI CKernel32Hook::CreateProcessW(__in_opt LPCWSTR lpApplicationName,
 
     if (bRet)
     {
-        if (!g_RPCClient->call<int>("iRun.NewProcess", lpProcessInformation->dwProcessId))
+        auto res = g_Veigar->syncCall("iRun.Server", 100, "iRun.NewProcess", lpProcessInformation->dwProcessId);
+        if (res.isSuccess() && !res.obj.get().as<int>())
         {
             if (FALSE == bOrigSuspended)
             {

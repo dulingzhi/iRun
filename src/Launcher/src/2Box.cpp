@@ -1,4 +1,4 @@
-
+﻿
 // 2Box.cpp : 定义应用程序的类行为。
 //
 
@@ -126,31 +126,20 @@ BOOL CMy2BoxApp::InitInstance()
         return FALSE;
     }
 
-    g_RPCServer = std::make_shared<rpc_server>(9000, std::thread::hardware_concurrency());
+    m_Veigar = std::make_shared<veigar::Veigar>();
 
-    if (!g_RPCServer)
+    m_Veigar->bind("iRun.NewProcess", &RpcServer::OnNewProcess);
+    m_Veigar->bind("iRun.NewWnd", &RpcServer::OnNewWnd);
+    m_Veigar->bind("iRun.EmbedWnd", &RpcServer::OnEmbedWnd);
+    m_Veigar->bind("iRun.ActiveWnd", &RpcServer::OnActiveWnd);
+    m_Veigar->bind("iRun.GetAllWnd", &RpcServer::OnGetAllWnd);
+    m_Veigar->bind("iRun.Connect", &RpcServer::OnConnect);
+
+    if (m_Veigar->init("iRun.Server"))
     {
         AfxMessageBox(_T("rpc库初始化失败!程序可能无法正常运行"));
         return FALSE;
     }
-
-    g_RPCServer->register_handler("iRun.NewProcess", &RpcServer::OnNewProcess);
-    g_RPCServer->register_handler("iRun.NewWnd", &RpcServer::OnNewWnd);
-    g_RPCServer->register_handler("iRun.EmbedWnd", &RpcServer::OnEmbedWnd);
-    g_RPCServer->register_handler("iRun.ActiveWnd", &RpcServer::OnActiveWnd);
-    g_RPCServer->register_handler("iRun.GetAllWnd", &RpcServer::OnGetAllWnd);
-
-    // 	if (FALSE == InitResource())
-    // 	{
-    // 		AfxMessageBox(_T("资源文件损坏"));
-    // 		return FALSE;
-    // 	}
-
-    g_RPCServer->set_conn_timeout_callback([=](int64_t) {
-        RpcServer::AcptEvent(0, 1, 0);
-    });
-
-    g_RPCServer->async_run();
 
     // 如果一个运行在 Windows XP 上的应用程序清单指定要
     // 使用 ComCtl32.dll 版本 6 或更高版本来启用可视化方式，
@@ -253,7 +242,11 @@ void CMy2BoxApp::OnFileOpen()
 
 void CMy2BoxApp::PreDestroyMainWnd()
 {
-    g_RPCServer.reset();
+    if (m_Veigar && m_Veigar->isInit())
+    {
+        m_Veigar->uninit();
+    }
+    m_Veigar.reset();
 }
 
 UINT CMy2BoxApp::GetSettingsInt(LPCTSTR lpszEntry, int nDefault)
@@ -339,16 +332,14 @@ BOOL CMy2BoxApp::ProcUnknownEnvStringsW(const void* pszzEnv, const std::wstring&
 
 BOOL CMy2BoxApp::CheckInstance()
 {
-    if (FALSE == WaitNamedPipe(_T("\\\\.\\pipe\\2Box_{BE6D2570-E5E5-40f0-9A53-CBDDE9C422BD}"), 1))
+    veigar::Veigar vg;
+
+    auto res = vg.syncCall("iRun.Server", 100, "iRun.ActiveWnd");
+    if (res.errCode == veigar::ErrorCode::SUCCESS)
     {
         return FALSE;
     }
 
-    rpc_client client("127.0.0.1", 9000);
-    if (client.connect())
-    {
-        client.call("iRun.ActiveWnd");
-    }
     return TRUE;
 }
 

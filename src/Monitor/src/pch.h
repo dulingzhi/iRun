@@ -11,10 +11,8 @@
 // Windows 头文件:
 #include <windows.h>
 
-#include <rest_rpc.hpp>
-using namespace rest_rpc;
-using namespace rest_rpc::rpc_service;
-extern std::shared_ptr<rpc_client> g_RPCClient;
+#include <veigar/veigar.h>
+extern std::shared_ptr<veigar::Veigar> g_Veigar;
 
 // TODO: 在此处引用程序需要的其他头文件
 #include <tchar.h>

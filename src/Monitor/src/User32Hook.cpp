@@ -76,8 +76,7 @@ WINAPI CUser32Hook::DispatchMessageA(__in CONST MSG* lpMsg)
 
             GetWindowTextW(lpMsg->hwnd, embed_info.szTitle, 260);
 
-            g_RPCClient->async_call(
-                "iRun.EmbedWnd", [=](asio::error_code err, string_view sv) {}, embed_info);
+            g_Veigar->syncCall("iRun.Server", 100, "iRun.EmbedWnd", embed_info);
         }
     }
 
@@ -97,8 +96,7 @@ WINAPI CUser32Hook::DispatchMessageW(__in CONST MSG* lpMsg)
 
             GetWindowTextW(lpMsg->hwnd, embed_info.szTitle, 260);
 
-            g_RPCClient->async_call(
-                "iRun.EmbedWnd", [=](asio::error_code err, string_view sv) {}, embed_info);
+            g_Veigar->syncCall("iRun.Server", 100, "iRun.EmbedWnd", embed_info);
         }
     }
 
@@ -151,8 +149,7 @@ HWND WINAPI CUser32Hook::CreateWindowExA(__in DWORD dwExStyle,
     embed_info.dwExStyle = dwExStyle;
     embed_info.dwStyle = dwStyle;
 
-    g_RPCClient->async_call(
-        "iRun.NewWnd", [=](asio::error_code err, string_view sv) {}, embed_info);
+    g_Veigar->syncCall("iRun.Server", 100, "iRun.NewWnd", embed_info);
 
     return hWndRet;
 }
@@ -203,9 +200,7 @@ HWND WINAPI CUser32Hook::CreateWindowExW(__in DWORD dwExStyle,
     embed_info.dwExStyle = dwExStyle;
     embed_info.dwStyle = dwStyle;
 
-    g_RPCClient->async_call(
-        "iRun.NewWnd", [=](asio::error_code err, string_view sv) {}, embed_info);
-
+    g_Veigar->syncCall("iRun.Server", 100, "iRun.NewWnd", embed_info);
     return hWndRet;
 }
 
@@ -217,7 +212,13 @@ HWND WINAPI CUser32Hook::FindWindowA(__in_opt LPCSTR lpClassName, __in_opt LPCST
         return hRet;
     }
 
-    auto windows = g_RPCClient->call<std::vector<WND_INFO>>("iRun.GetAllWnd");
+    auto res = g_Veigar->syncCall("iRun.Server", 100, "iRun.GetAllWnd");
+    if (!res.isSuccess())
+    {
+        return NULL;
+    }
+
+    auto windows = res.obj.get().as<std::vector<WND_INFO>>();
 
     DWORD dwPid = GetCurrentProcessId();
 
@@ -241,8 +242,13 @@ HWND WINAPI CUser32Hook::FindWindowW(__in_opt LPCWSTR lpClassName, __in_opt LPCW
         return hRet;
     }
 
-    auto windows = g_RPCClient->call<std::vector<WND_INFO>>("iRun.GetAllWnd");
+    auto res = g_Veigar->syncCall("iRun.Server", 100, "iRun.GetAllWnd");
+    if (!res.isSuccess())
+    {
+        return NULL;
+    }
 
+    auto windows = res.obj.get().as<std::vector<WND_INFO>>();
     DWORD dwPid = GetCurrentProcessId();
 
     for (auto& item : windows)
@@ -265,8 +271,13 @@ HWND WINAPI CUser32Hook::FindWindowExA(__in_opt HWND hWndParent, __in_opt HWND h
         return hRet;
     }
 
-    auto windows = g_RPCClient->call<std::vector<WND_INFO>>("iRun.GetAllWnd");
+    auto res = g_Veigar->syncCall("iRun.Server", 100, "iRun.GetAllWnd");
+    if (!res.isSuccess())
+    {
+        return NULL;
+    }
 
+    auto windows = res.obj.get().as<std::vector<WND_INFO>>();
     DWORD dwPid = GetCurrentProcessId();
 
     for (auto& item : windows)
@@ -289,8 +300,13 @@ HWND WINAPI CUser32Hook::FindWindowExW(__in_opt HWND hWndParent, __in_opt HWND h
         return hRet;
     }
 
-    auto windows = g_RPCClient->call<std::vector<WND_INFO>>("iRun.GetAllWnd");
+    auto res = g_Veigar->syncCall("iRun.Server", 100, "iRun.GetAllWnd");
+    if (!res.isSuccess())
+    {
+        return NULL;
+    }
 
+    auto windows = res.obj.get().as<std::vector<WND_INFO>>();
     DWORD dwPid = GetCurrentProcessId();
 
     for (auto& item : windows)
@@ -337,7 +353,13 @@ BOOL WINAPI CUser32Hook::EnumWindows(__in WNDENUMPROC lpEnumFunc, __in LPARAM lP
     MyEnumWndParams params{};
     params.lParam = lParam;
     params.lpEnumFunc = lpEnumFunc;
-    params.windows = g_RPCClient->call<std::vector<WND_INFO>>("iRun.GetAllWnd");
+    
+    auto res = g_Veigar->syncCall("iRun.Server", 100, "iRun.GetAllWnd");
+    if (res.isSuccess())
+    {
+        params.windows = res.obj.get().as<std::vector<WND_INFO>>();
+    }
+
     return TrueEnumWindows.Call()(&MyEnumWindowsProc, (LPARAM)&params);
 }
 
@@ -351,7 +373,12 @@ BOOL WINAPI CUser32Hook::EnumChildWindows(__in_opt HWND hWndParent, __in WNDENUM
     MyEnumWndParams params{};
     params.lParam = lParam;
     params.lpEnumFunc = lpEnumFunc;
-    params.windows = g_RPCClient->call<std::vector<WND_INFO>>("iRun.GetAllWnd");
+
+    auto res = g_Veigar->syncCall("iRun.Server", 100, "iRun.GetAllWnd");
+    if (res.isSuccess())
+    {
+        params.windows = res.obj.get().as<std::vector<WND_INFO>>();
+    }
     return TrueEnumChildWindows.Call()(hWndParent, &MyEnumWindowsProc, (LPARAM)&params);
 }
 
@@ -364,7 +391,13 @@ HWND WINAPI CUser32Hook::GetWindow(__in HWND hWnd, __in UINT uCmd)
         return hRet;
     }
 
-    auto windows = g_RPCClient->call<std::vector<WND_INFO>>("iRun.GetAllWnd");
+    auto res = g_Veigar->syncCall("iRun.Server", 100, "iRun.GetAllWnd");
+    if (!res.isSuccess())
+    {
+        return NULL;
+    }
+
+    auto windows = res.obj.get().as<std::vector<WND_INFO>>();
 
     DWORD dwPid = GetCurrentProcessId();
 
@@ -393,8 +426,13 @@ HWND WINAPI CUser32Hook::GetTopWindow(__in_opt HWND hWnd)
         return hRet;
     }
 
-    auto windows = g_RPCClient->call<std::vector<WND_INFO>>("iRun.GetAllWnd");
+    auto res = g_Veigar->syncCall("iRun.Server", 100, "iRun.GetAllWnd");
+    if (!res.isSuccess())
+    {
+        return NULL;
+    }
 
+    auto windows = res.obj.get().as<std::vector<WND_INFO>>();
     DWORD dwPid = GetCurrentProcessId();
 
     for (auto& item : windows)

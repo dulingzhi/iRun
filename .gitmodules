@@ -1,0 +1,3 @@
+[submodule "contrib/veigar"]
+	path = contrib/veigar
+	url = https://github.com/winsoft666/veigar.git

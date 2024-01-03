@@ -3,21 +3,18 @@
 #include "HookMgr.h"
 #include <detours.h>
 
-std::shared_ptr<rpc_client> g_RPCClient;
+std::shared_ptr<veigar::Veigar> g_Veigar;
 
 int Init()
 {
-    g_RPCClient = std::make_shared<rpc_client>("127.0.0.1", 9000);
-    if (!g_RPCClient->connect())
+    g_Veigar = std::make_shared<veigar::Veigar>();
+    auto res = g_Veigar->syncCall("iRun.Server", 100, "iRun.Connect");
+
+    if (!res.isSuccess())
     {
         TerminateProcess(GetCurrentProcess(), 0);
         return -1;
     }
-
-    g_RPCClient->set_error_callback([](asio::error_code e) {
-        std::cout << e << std::endl;
-        TerminateProcess(GetCurrentProcess(), 0);
-    });
 
     return 0;
 }
