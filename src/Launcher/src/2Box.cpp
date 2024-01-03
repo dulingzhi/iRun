@@ -135,7 +135,7 @@ BOOL CMy2BoxApp::InitInstance()
     m_Veigar->bind("iRun.GetAllWnd", &RpcServer::OnGetAllWnd);
     m_Veigar->bind("iRun.Connect", &RpcServer::OnConnect);
 
-    if (m_Veigar->init("iRun.Server"))
+    if (!m_Veigar->init("iRun.Server"))
     {
         AfxMessageBox(_T("rpc库初始化失败!程序可能无法正常运行"));
         return FALSE;
@@ -333,14 +333,8 @@ BOOL CMy2BoxApp::ProcUnknownEnvStringsW(const void* pszzEnv, const std::wstring&
 BOOL CMy2BoxApp::CheckInstance()
 {
     veigar::Veigar vg;
-
     auto res = vg.syncCall("iRun.Server", 100, "iRun.ActiveWnd");
-    if (res.errCode == veigar::ErrorCode::SUCCESS)
-    {
-        return FALSE;
-    }
-
-    return TRUE;
+    return res.isSuccess();
 }
 
 BOOL CMy2BoxApp::StartLoadFileThread(CString& FileName)

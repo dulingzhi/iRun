@@ -6,7 +6,7 @@ package("veigar")
         local configs = {}
         table.insert(configs, "-DCMAKE_BUILD_TYPE=" .. (package:debug() and "Debug" or "Release"))
         table.insert(configs, "-DBUILD_SHARED_LIBS=" .. (package:config("shared") and "ON" or "OFF"))
-        table.insert(configs, "-DMSGPACK_NO_BOOST")
+        table.insert(configs, "-DMSGPACK_NO_BOOST=1")
         package:add("defines", "MSGPACK_NO_BOOST")
         import("package.tools.cmake").install(package, configs)
         os.trycp("include/veigar", package:installdir("include"))

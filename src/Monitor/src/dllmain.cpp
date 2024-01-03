@@ -8,10 +8,11 @@ std::shared_ptr<veigar::Veigar> g_Veigar;
 int Init()
 {
     g_Veigar = std::make_shared<veigar::Veigar>();
-    auto res = g_Veigar->syncCall("iRun.Server", 100, "iRun.Connect");
+    auto res = g_Veigar->syncCall("iRun.Server", 1000, "iRun.Connect");
 
     if (!res.isSuccess())
     {
+        MessageBox(NULL, "Connect to iRun.Server failed.", res.errorMessage.c_str(), MB_OK);
         TerminateProcess(GetCurrentProcess(), 0);
         return -1;
     }
@@ -38,7 +39,7 @@ void InitHook()
     }
 }
 
-DWORD WINAPI InitializeThread()
+DWORD WINAPI InitializeDll()
 {
     Init();
     InitHook();
@@ -56,8 +57,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
     {
         DetourRestoreAfterWith();
         DisableThreadLibraryCalls(hModule);
-        std::thread t(InitializeThread);
-        t.detach();
+        InitializeDll();
     }
 
     return TRUE;
