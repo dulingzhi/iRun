@@ -110,11 +110,6 @@ std::vector<WND_INFO> OnGetAllWnd()
     return result;
 }
 
-int OnConnect()
-{
-    return 1;
-}
-
 // 	int IsProcessInBox( rpc_conn conn )
 // 	{
 // 		int iPid = 0;

@@ -20,8 +20,6 @@ int OnActiveWnd();
 
 std::vector<WND_INFO> OnGetAllWnd();
 
-int OnConnect();
-
 // int IsProcessInBox(const void* data_in, unsigned int size_in, COMPLETIONPROC proc,void* usr);
 
 // int InitAllRemoteDlls(const void* data_in, unsigned int size_in, COMPLETIONPROC proc,void* usr);

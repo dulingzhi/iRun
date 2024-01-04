@@ -133,7 +133,6 @@ BOOL CMy2BoxApp::InitInstance()
     m_Veigar->bind("iRun.EmbedWnd", &RpcServer::OnEmbedWnd);
     m_Veigar->bind("iRun.ActiveWnd", &RpcServer::OnActiveWnd);
     m_Veigar->bind("iRun.GetAllWnd", &RpcServer::OnGetAllWnd);
-    m_Veigar->bind("iRun.Connect", &RpcServer::OnConnect);
 
     if (!m_Veigar->init("iRun.Server"))
     {

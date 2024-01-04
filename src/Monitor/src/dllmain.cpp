@@ -8,11 +8,10 @@ std::shared_ptr<veigar::Veigar> g_Veigar;
 int Init()
 {
     g_Veigar = std::make_shared<veigar::Veigar>();
-    auto res = g_Veigar->syncCall("iRun.Server", 1000, "iRun.Connect");
 
-    if (!res.isSuccess())
+    if (!g_Veigar->init("iRun.Client"))
     {
-        MessageBox(NULL, "Connect to iRun.Server failed.", res.errorMessage.c_str(), MB_OK);
+        MessageBox(NULL, "Init RPC Client failed.", "Invalid", MB_OK);
         TerminateProcess(GetCurrentProcess(), 0);
         return -1;
     }
